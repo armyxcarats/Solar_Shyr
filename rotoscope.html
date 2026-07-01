@@ -334,8 +334,8 @@
             line-height: 1.5;
         }
 
-        /* Tutorial Section - Split Layout */
-        .tutorial-section {
+        /* Complete Rotoscope Animation Section */
+        .complete-section {
             background: rgba(10, 18, 30, 0.5);
             backdrop-filter: blur(10px);
             border-radius: 32px;
@@ -344,7 +344,7 @@
             border: 1px solid rgba(255, 217, 102, 0.2);
         }
 
-        .tutorial-section h3 {
+        .complete-section h3 {
             font-size: 1.8rem;
             margin-bottom: 10px;
             background: linear-gradient(135deg, #FFD966, #A0C4FF);
@@ -354,13 +354,13 @@
             text-align: center;
         }
 
-        .tutorial-sub {
+        .complete-sub {
             text-align: center;
             margin-bottom: 30px;
             opacity: 0.7;
         }
 
-        .tutorial-wrapper {
+        .complete-wrapper {
             display: flex;
             gap: 40px;
             flex-wrap: wrap;
@@ -374,10 +374,36 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
 
+        .tutorial-video {
+            position: relative;
+            min-height: 260px;
+            background: #0a1220;
+        }
+
         .tutorial-video video {
             width: 100%;
+            height: 100%;
+            min-height: 260px;
             display: block;
             border-radius: 20px;
+            object-fit: contain;
+            background: #000;
+        }
+
+        .video-fallback {
+            margin-top: 12px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            text-align: center;
+        }
+
+        .video-fallback a {
+            color: #FFD966;
+            text-decoration: none;
+        }
+
+        .video-fallback a:hover {
+            text-decoration: underline;
         }
 
         .tutorial-info {
@@ -444,12 +470,33 @@
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            background: #0a1220;
         }
 
         .reference-video video {
             width: 100%;
+            height: 100%;
+            min-height: 260px;
             display: block;
             border-radius: 20px;
+            object-fit: contain;
+            background: #000;
+        }
+
+        .video-fallback {
+            margin-top: 12px;
+            font-size: 0.85rem;
+            opacity: 0.75;
+            text-align: center;
+        }
+
+        .video-fallback a {
+            color: #FFD966;
+            text-decoration: none;
+        }
+
+        .video-fallback a:hover {
+            text-decoration: underline;
         }
 
         .credit-text {
@@ -648,25 +695,21 @@
         </div>
     </div>
 
-    <!-- Tutorial Section - Split Layout -->
-    <div class="tutorial-section">
-        <h3><i class="fas fa-graduation-cap"></i> Tutorial Reference</h3>
-        <div class="tutorial-sub">How to Make Goal Celebration Animations in After Effects</div>
-        <div class="tutorial-wrapper">
-            <div class="tutorial-video">
-                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/uCVrDNx0eWM" title="How to Make Goal Celebration Animations in After Effects" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <!-- Complete Rotoscope Animation Section -->
+    <div class="complete-section">
+        <h3><i class="fas fa-play-circle"></i> Complete Rotoscope Animation</h3>
+        <div class="complete-sub">Full rotoscope animation showcase</div>
+        <div class="complete-wrapper">
+            <div id="completeVideoWrapper" class="tutorial-video">
+                <video id="completeVideo" controls preload="metadata" playsinline poster="./small ani.gif">
+                    <source src="./roto-animation/Complete_Roto.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div id="completeFallback" class="video-fallback">If this video does not load, <a href="./roto-animation/Complete_Roto.mp4" target="_blank" rel="noopener">open it directly</a>.</div>
             </div>
             <div class="tutorial-info">
-                <h4>About This Tutorial</h4>
-                <p>This tutorial demonstrates the process of creating goal celebration animations using Adobe After Effects. It covers rotoscoping techniques, keyframe animation, and adding dynamic effects to bring celebrations to life.</p>
-                <div class="tutorial-credit">
-                    <i class="fab fa-youtube"></i>
-                    <span><strong>Credit:</strong> Tutorial by <strong>Elliano_</strong> on YouTube</span>
-                </div>
-                <div class="tutorial-credit" style="margin-top: 8px;">
-                    <i class="fas fa-calendar-alt"></i>
-                    <span>Used as reference for rotoscope animation techniques</span>
-                </div>
+                <h4>Full Animation</h4>
+                <p>This is the completed rotoscope animation, showing the full sequence from start to finish. It replaces the tutorial reference and highlights the final project.</p>
             </div>
         </div>
     </div>
@@ -676,10 +719,11 @@
         <h3><i class="fas fa-music"></i> Reference: Rotoscope Dance Video</h3>
         <p>A stunning example of rotoscoping in music videos</p>
         <div class="reference-video">
-            <video controls preload="metadata">
-                <source src="no-lie-sean-paul-dua-lipa-dance.mp4" type="video/mp4">
+            <video id="referenceVideo" controls preload="metadata" playsinline poster="./space1.jpg">
+                <source src="./no-lie-sean-paul-dua-lipa-dance.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
+            <div id="referenceFallback" class="video-fallback">If this reference video does not load, <a href="./no-lie-sean-paul-dua-lipa-dance.mp4" target="_blank" rel="noopener">open it directly</a>.</div>
         </div>
         <div class="credit-text">
             <i class="fas fa-music"></i> "No Lie" - Sean Paul ft. Dua Lipa | Choreography by 1MILLION Dance Studio
@@ -763,6 +807,26 @@
         document.body.style.backgroundPosition = "center center";
         document.body.style.backgroundAttachment = "fixed";
     });
+
+    // Ensure videos are available and show fallback text when they fail to load
+    const completeVideo = document.getElementById('completeVideo');
+    const completeFallback = document.getElementById('completeFallback');
+    const referenceVideo = document.getElementById('referenceVideo');
+    const referenceFallback = document.getElementById('referenceFallback');
+
+    function handleVideoError(videoElement, fallbackElement, title) {
+        videoElement.style.display = 'none';
+        fallbackElement.textContent = `${title} failed to load. `;
+        const link = document.createElement('a');
+        link.href = videoElement.querySelector('source').src;
+        link.target = '_blank';
+        link.rel = 'noopener';
+        link.textContent = 'Open it directly';
+        fallbackElement.appendChild(link);
+    }
+
+    completeVideo.addEventListener('error', () => handleVideoError(completeVideo, completeFallback, 'Complete rotoscope video'));
+    referenceVideo.addEventListener('error', () => handleVideoError(referenceVideo, referenceFallback, 'Reference video'));
 </script>
 </body>
 </html>
